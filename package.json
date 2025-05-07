@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix renderer\" \"npm run start --prefix electron\""
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "electron": "^35.2.1"
+  }
+}
