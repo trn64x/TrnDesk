@@ -42,7 +42,7 @@ const Sign = () => {
 <label className="text-white tracking-wide text-lg">Twój email</label>
 <Input  className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"{...form.register("email")} placeholder="Twój email"></Input>
 <label className="text-white tracking-wide text-lg">Twoje hasło</label>
-<Input  className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" {...form.register("password")} placeholder="Twoje hasło"></Input>
+<Input type="password"  className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" {...form.register("password")} placeholder="Twoje hasło"></Input>
 <Input  className="font-semibold border-neutral-300 mt-4 border-1 self-center rounded-full bg-background w-[50%] hover:brightness-110" type="submit" value="Zarejestruj się"></Input>
 </form>
 </Form>

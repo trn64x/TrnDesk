@@ -2,8 +2,8 @@
 import { Pool } from "pg";
 
 export const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // UWAGA: to musi być postgres://...
+  connectionString: process.env.DATABASE_URL, 
   ssl: {
-    rejectUnauthorized: false, // bo Supabase wymusza SSL
+    rejectUnauthorized: false, 
   },
 });

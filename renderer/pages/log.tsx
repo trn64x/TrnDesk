@@ -35,7 +35,7 @@ if(req.ok){
     <label className="text-white tracking-wide text-lg">Twój email</label>
             <Input className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="Twój email" {...form.register("email")}/>
     <label className="text-white tracking-wide text-lg">Twoje hasło</label>
-            <Input className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="Twoje hasło" {...form.register("password")}/>
+            <Input type="password" className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="Twoje hasło" {...form.register("password")}/>
             <Input  className="font-semibold border-neutral-300 mt-4 border-1 self-center rounded-full bg-background w-[50%] hover:brightness-110" type="submit" value="Zaloguj się"></Input>
         </form>
     </Form>

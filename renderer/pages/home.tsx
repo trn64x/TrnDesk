@@ -50,7 +50,7 @@ return(
 <>
 <Sidebar className='border-r-1 border-r-gray-600'>
     <SidebarHeader className='flex flex-row justify-between items-center'>
-        <div className='flex flex-row items-center mx-1'><img className='rounded-md border-1 border-background w-10 h-auto object-contain' src="pfp.png" alt="" /><div className='mx-2 tracking-wide font-extralight text-lg'>{name}</div></div> 
+        <div className='flex flex-row items-center mx-1'><img className='rounded-md  border-1 border-background w-10 h-auto object-contain' src="profile.png" alt="" /><div className='mx-2 tracking-wide font-extralight text-lg'>{name}</div></div> 
         <DropdownMenu>
   <DropdownMenuTrigger><Settings className='mr-2'/></DropdownMenuTrigger>
   <DropdownMenuContent>

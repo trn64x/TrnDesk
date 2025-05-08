@@ -14,6 +14,7 @@ export const sessions = pgTable("sessions", {
   expiresAt: timestamp("expires_at").notNull(),
 });
 export const notes = pgTable("notes",{
+  id: serial().primaryKey(),
   user_id: uuid("user_id").notNull().references(()=> sessions.userId),
   Title: varchar("Title", {length:30}).notNull(),
   Content: varchar("Content",{length:2000}).notNull(),
