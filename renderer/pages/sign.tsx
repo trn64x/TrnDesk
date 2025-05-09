@@ -33,17 +33,17 @@ const Sign = () => {
         <div className="w-full flex items-center justify-center flex-col">
         <div className="text-3xl text-bold my-2">Zarejestruj się</div>
 <Form  {...form}>
-<form className="rounded-2xl bg-primary m-5 p-4 w-[30vw] flex justify-center flex-col" onSubmit={form.handleSubmit(onSubmit)}>
-<label className="text-white tracking-wide text-lg">Twoja nazwa</label>
+<form className="rounded-2xl bg-primary-foreground text-foreground m-5 p-4 w-[30vw] flex justify-center flex-col" onSubmit={form.handleSubmit(onSubmit)}>
+<label className="text-foreground tracking-wide text-lg">Twoja nazwa</label>
 <div className="w-full my-5">
 <Input className="focus:ring-2 focus:ring-blue-500 focus:outline-none transition"{...form.register("name")} placeholder="Twoja Nazwa"></Input>
-<sub className="text-neutral-500">*nazwa ta potem będzie wyświetlana na twoim profilu</sub>
+<sub className="text-foreground">*nazwa ta potem będzie wyświetlana na twoim profilu</sub>
 </div>
-<label className="text-white tracking-wide text-lg">Twój email</label>
+<label className="text-foreground tracking-wide text-lg">Twój email</label>
 <Input  className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"{...form.register("email")} placeholder="Twój email"></Input>
-<label className="text-white tracking-wide text-lg">Twoje hasło</label>
+<label className="text-foreground tracking-wide text-lg">Twoje hasło</label>
 <Input type="password"  className="my-5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" {...form.register("password")} placeholder="Twoje hasło"></Input>
-<Input  className="font-semibold border-neutral-300 mt-4 border-1 self-center rounded-full bg-background w-[50%] hover:brightness-110" type="submit" value="Zarejestruj się"></Input>
+<Input  className="bg-foreground text-primary/50 font-semibold mt-4 border-1  self-center rounded-full w-[50%] hover:bg-background hover:text-foreground" type="submit" value="Zarejestruj się"></Input>
 </form>
 </Form>
 <a className="text-blue-500 cursor-pointer hover:underline " onClick={()=> router.push("/")}>Powrót do menu głównego</a>

@@ -28,7 +28,7 @@ const CreateNote = ()=>{
 return(
     <main className="w-full h-[100vh] flex justify-center items-center">
         <Form {...form}>
-        <form className=" flex flex-col bg-sidebar rounded-lg w-[30vw] p-5 justify-center items-center" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className=" flex flex-col bg-secondary/70 rounded-lg w-[30vw] p-5 justify-center items-center" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="text-2xl m-5 text-foreground font-light">Stwórz Notatkę</div>
             <Input className="my-2 w-[75%]" {...form.register("title")} placeholder="Dodaj Tytuł"></Input>
             <textarea className={cn(

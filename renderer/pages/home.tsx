@@ -20,6 +20,7 @@ import UserDataProvider, { userContext } from '@/providers/HomeProvider';
 import { Archive } from 'lucide-react';
 import AllNote from '@/components/ui/allnotes';
 import { useTheme } from 'next-themes';
+import Stats from '@/components/ui/stats';
 const home = () => {
     const {theme,setTheme} = useTheme();
     const {mode,setMode} = useMode();
@@ -50,9 +51,9 @@ useEffect(() => {
   }, [context?.json]);
 return(
 <>
-<Sidebar className='border-r-1 border-r-gray-600'>
+<Sidebar className='border-r-1 border-r-ring'>
     <SidebarHeader className='flex flex-row justify-between items-center'>
-        <div className='flex flex-row items-center mx-1'><img className='rounded-md  border-1 border-background w-10 h-auto object-contain' src="profile.png" alt="" /><div className='mx-2 tracking-wide font-extralight text-lg'>{name}</div></div> 
+        <div className='flex flex-row items-center mx-1'><button onClick={()=> setMode("menu")}><img className='rounded-md  border-1 border-background w-10 h-auto object-contain' src="profile.png" alt="" /></button><div className='mx-2 tracking-wide font-extralight text-lg'>{name}</div></div> 
         <DropdownMenu>
   <DropdownMenuTrigger><Settings className='mr-2'/></DropdownMenuTrigger>
   <DropdownMenuContent>
@@ -69,15 +70,16 @@ return(
 <Barbutton onClick={() => setMode('create')}> <StickyNoteIcon className="text-foreground mr-2 p-0.5" />Stwórz notatki</Barbutton>
 <Barbutton onClick={() => setMode('edit')}><Archive className="text-foreground mr-2 p-0.5" />Wszystkie notatki</Barbutton>
 <Barbutton><BookUser className="text-foreground mr-2 p-0.5" />Planer dnia</Barbutton>
-<Barbutton><Brain className="text-foreground mr-2 p-0.5"/>Statystyki</Barbutton>
+<Barbutton onClick={()=> setMode('stats')}><Brain className="text-foreground mr-2 p-0.5"/>Statystyki</Barbutton>
         </SidebarGroup>
     </SidebarContent>
-    <SidebarFooter className='border-t-1 border-background m-2'><Button className='bg-background text-red-500 font-bold border-1 border-red-500 hover:bg-red-500 hover:border-foreground hover:text-background' onClick={()=> router.push("/")}>Wyloguj mnie</Button></SidebarFooter>
+    <SidebarFooter className='border-t-1 border-background m-2'><Button className='bg-background text-red-700 font-bold border-1 border-red-500 hover:bg-red-700 hover:text-background' onClick={()=> router.push("/")}>Wyloguj mnie</Button></SidebarFooter>
 </Sidebar>
 <SidebarTrigger/>
-{mode === undefined && (<div className='w-full flex items-center justify-center max-h flex-col'><div className='text-2xl'>Welcome to TrnDesk, your free notes, and day plan maker</div><div className='text-base mt-2'>Click sidebar menu buttons to interact!</div></div>)}
+{(mode === undefined || mode === "menu") && (<div className='w-full flex items-center justify-center max-h flex-col'><div className='text-2xl'>Witam w TrnDesk, twoja darmowa aplikacja do notatek</div><div className='text-base mt-2'>Zacznij eksplorować funkcje aplikacji</div></div>)}
 { mode === "create" && <CreateNote></CreateNote> }
 { mode === "edit" && <AllNote/>}
+{ mode === "stats" && <Stats></Stats>}
 </>
 )
 }
