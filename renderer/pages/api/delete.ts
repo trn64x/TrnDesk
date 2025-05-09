@@ -6,13 +6,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 const Delete = async (req:NextApiRequest,
     res:NextApiResponse
 ) => {
-    const {noteId} = req.body;
-    const database = await db.delete(notes).where(eq(notes.id,noteId));
-    if(database){
+    const {noteId, userId} = req.body;
+    await db.delete(notes).where(eq(notes.id,noteId));
+    const database = await db.select().from(notes).where(eq(notes.user_id,userId))
         return res.status(200).json(database);
-    }
-    else{
-        return res.status(400);
-    }
 }
 export default Delete;

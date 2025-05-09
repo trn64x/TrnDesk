@@ -10,7 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
-import { StickyNoteIcon } from 'lucide-react';
+import { BookUser, Brain, StickyNoteIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AlarmCheck, Settings } from 'lucide-react';
 import Barbutton from '@/components/ui/barbutton';
@@ -19,7 +19,9 @@ import CreateNote from '@/components/ui/createNote';
 import UserDataProvider, { userContext } from '@/providers/HomeProvider';
 import { Archive } from 'lucide-react';
 import AllNote from '@/components/ui/allnotes';
+import { useTheme } from 'next-themes';
 const home = () => {
+    const {theme,setTheme} = useTheme();
     const {mode,setMode} = useMode();
 const [name,setName] = useState<string | undefined>();
 const context = useContext(userContext);
@@ -57,20 +59,20 @@ return(
     <DropdownMenuLabel>{name}</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuItem>Ustawienia</DropdownMenuItem>
-    <DropdownMenuItem>Tło</DropdownMenuItem>
+    <DropdownMenuItem onClick={()=> setTheme(theme === "dark" ? "light" :"dark")}>Tło</DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>
     </SidebarHeader>
     <SidebarContent>
-        <div className=" border-y-1 border-y-background text-lg my-5 py-2 mx-1 px-2 tracking-widest font-lighjt">Opcje</div>
+        <div className=" border-t-1 border-y-gray-700 text-lg pt-2 mx-1 px-2 tracking-widest text-sm text-grey-700 font-lighjt">Opcje</div>
         <SidebarGroup>
-<Barbutton onClick={() => setMode('create')}> <StickyNoteIcon className="text-gray-200 mr-2 p-0.5" />Stwórz notatki</Barbutton>
-<Barbutton onClick={() => setMode('edit')}><Archive className="text-gray-200 mr-2 p-0.5" />Wszystkie notatki</Barbutton>
-<Barbutton>Planer dnia</Barbutton>
-<Barbutton>Statystyki</Barbutton>
+<Barbutton onClick={() => setMode('create')}> <StickyNoteIcon className="text-foreground mr-2 p-0.5" />Stwórz notatki</Barbutton>
+<Barbutton onClick={() => setMode('edit')}><Archive className="text-foreground mr-2 p-0.5" />Wszystkie notatki</Barbutton>
+<Barbutton><BookUser className="text-foreground mr-2 p-0.5" />Planer dnia</Barbutton>
+<Barbutton><Brain className="text-foreground mr-2 p-0.5"/>Statystyki</Barbutton>
         </SidebarGroup>
     </SidebarContent>
-    <SidebarFooter className='border-t-1 border-background m-2'><Button className='text-red-500 font-bold border-1 border-red-500 hover:bg-red-500 hover:border-background hover:text-background' onClick={()=> router.push("/")}>Wyloguj mnie</Button></SidebarFooter>
+    <SidebarFooter className='border-t-1 border-background m-2'><Button className='bg-background text-red-500 font-bold border-1 border-red-500 hover:bg-red-500 hover:border-foreground hover:text-background' onClick={()=> router.push("/")}>Wyloguj mnie</Button></SidebarFooter>
 </Sidebar>
 <SidebarTrigger/>
 {mode === undefined && (<div className='w-full flex items-center justify-center max-h flex-col'><div className='text-2xl'>Welcome to TrnDesk, your free notes, and day plan maker</div><div className='text-base mt-2'>Click sidebar menu buttons to interact!</div></div>)}

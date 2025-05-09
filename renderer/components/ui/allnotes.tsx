@@ -2,11 +2,13 @@ import { userContext } from "@/providers/HomeProvider";
 import {Form} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import { useContext, useEffect, useState } from "react";
-import { Trash } from "lucide-react";
+import { Brush, Paintbrush, Paintbrush2, Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils";
 const AllNote = ()=> {
     const context = useContext(userContext);
     const [notes,setNote] = useState<any[]>([]);
+    const [Loading,setLoading] = useState<boolean>(false);
     useEffect(()=> {
         const FindNotes = async ()=> {
 
@@ -28,19 +30,28 @@ const AllNote = ()=> {
             
     },[context?.json?.userid]);
 async function onDelete(noteId:any) {
+    try{
+setLoading(true);
+    
     const response = await fetch("api/delete",
         {
             method: "POST",
             headers: {
                 "Content-Type":"application/json"
             },
-            body: JSON.stringify({noteId: noteId})
+            body: JSON.stringify({noteId: noteId, userId: context?.json.userid})
         }
     )
     if(response.ok){
         const data = await response.json();
+        
         setNote(data);
     }
+}
+catch(err){console.error(err)} 
+finally{
+setLoading(false)
+}
 }
 async function SearchNotes(values:any){
         setTimeout(async ()=>
@@ -60,22 +71,42 @@ async function SearchNotes(values:any){
                 }}
             ,500)
 }
+useEffect(() => {
+    console.log("Aktualny stan notes:", notes); // To będzie logować po zaktualizowaniu stanu
+}, [notes]);
+const renderWithLineBreaks = (text?:string): React.ReactNode => {
+    if(!text){
+        return [];
+    }
+    text.split("\n").map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+}
 return(
-    <main className="w-full h-[100vh]">
-<div className="text-2xl">Wszystkie Notatki</div>
-<div>
+    <main className="w-full flex items-center flex-col h-[100vh] overflow-auto">
+<div className="py-4 font-bold text-3xl">Wszystkie Notatki</div>
+<div className="w-[80%] flex items-center flex-col">
 
-            <Input onChange={(e)=> SearchNotes(e.target.value)}></Input>
-{notes.length === 0 ? (<p>Brak notatek</p>): (
-    notes.map((note,index)=> (
-<div className="bg-neutral-900 m-5 p-5 min-h-50 max-w">
-<div className="font-bold text-xl w-full p-2 rounded-md bg-background">{note.Title} <button onClick={()=> onDelete(note.id)}><Trash></Trash></button>
+            <div className="px-4 w-[50%] rounded-lg bg-accent"><Input className="my-4 border-1 border-background w-full" onChange={(e)=> SearchNotes(e.target.value)} placeholder="Wpisz tytuł poszukiwanej notatki..."></Input></div>
+<div className="my-5 w-[80%]">{notes.length === 0  ? (<p>Brak notatek</p>): (
+    !Loading ? notes.map((note,index)=> (
+<div className="bg-sidebar m-5 p-5 min-h-50 rounded-lg w-full">
+<div className="my-1 flex flex-row text-lg font-light items-center"><div className="font-light">Tytuł:</div><div className="flex font-light justify-between font-light text-lg w-full p-2 rounded-md ">{note.Title} <div className="flex justify-end w-[50%]"><button><Brush className="p-0.5 text-foreground"/></button> <button onClick={()=> onDelete(note.id)}><Trash className="text-red-800 p-0.5"></Trash></button></div></div></div>
+<div className="my-1 flex flex-col"><div className={cn(
+                    "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-h-40  min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                    "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                    "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                    
+                  )} key={index}>  <pre className="text-foreground/70 text-wrap">{note.Content || "Brak zawartości"}</pre>
+{renderWithLineBreaks(note.content)}</div></div>
+<div className="w-full flex justify-end text-sm text-ring">{note.createdAt.slice(0,10)} {note.createdAt.slice(11,16)}</div>
 </div>
-<div className="font-bold min-h-30 text-base font-light my-2 w-full p-2 rounded-md bg-background" key={index}>{note.Content}</div>
-
-</div>
-    ))
+    )) : <p>Loading...</p>
 )}
+</div>
 </div>
 </main>
 );

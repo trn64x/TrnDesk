@@ -13,7 +13,7 @@ if(database.length !== 0){
     return res.status(200).json(database);
 }
 else{
-    return res.status(500).json({error: "couldnt fetch the data"});
+    return res.status(300).json({message: "there is no notes"});
 }
 }
 export default AllNote;
