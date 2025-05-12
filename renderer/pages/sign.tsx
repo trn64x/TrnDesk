@@ -15,7 +15,7 @@ const Sign = () => {
     });
     
     const onSubmit = async (values: any) => {
-        const req = await fetch("/api/sign-up", {
+        const req = await fetch("/api/notes/sign-up", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(values),

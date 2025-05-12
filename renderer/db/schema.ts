@@ -5,6 +5,8 @@ export const usersTable = pgTable("users", {
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   password: varchar("password", { length: 255 }).notNull(),
+  created: integer().notNull().default(0),
+  delete:integer().notNull().default(0)
 });
 
 export const sessions = pgTable("sessions", {

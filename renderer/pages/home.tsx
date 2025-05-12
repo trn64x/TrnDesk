@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from 'next/router';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarTrigger } from '@/components/ui/sidebar';
-import {useEffect,useContext,useState} from 'react';
+import {useEffect,useContext,useState, Suspense} from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,6 +21,8 @@ import { Archive } from 'lucide-react';
 import AllNote from '@/components/ui/allnotes';
 import { useTheme } from 'next-themes';
 import Stats from '@/components/ui/stats';
+import Loading from './Loading';
+import Planner from '@/components/ui/Planner';
 const home = () => {
     const {theme,setTheme} = useTheme();
     const {mode,setMode} = useMode();
@@ -34,7 +36,7 @@ const router= useRouter();
 useEffect(()=> {
 
     const userData = async () => {
-    const res = await fetch("api/home");
+    const res = await fetch("api/notes/home");
 if(res.ok){
     const data = await res.json();
     setJson(data);
@@ -69,7 +71,7 @@ return(
         <SidebarGroup>
 <Barbutton onClick={() => setMode('create')}> <StickyNoteIcon className="text-foreground mr-2 p-0.5" />Stwórz notatki</Barbutton>
 <Barbutton onClick={() => setMode('edit')}><Archive className="text-foreground mr-2 p-0.5" />Wszystkie notatki</Barbutton>
-<Barbutton><BookUser className="text-foreground mr-2 p-0.5" />Planer dnia</Barbutton>
+<Barbutton onClick={()=> setMode('plan')}><BookUser className="text-foreground mr-2 p-0.5" />Planer dnia</Barbutton>
 <Barbutton onClick={()=> setMode('stats')}><Brain className="text-foreground mr-2 p-0.5"/>Statystyki</Barbutton>
         </SidebarGroup>
     </SidebarContent>
@@ -77,9 +79,26 @@ return(
 </Sidebar>
 <SidebarTrigger/>
 {(mode === undefined || mode === "menu") && (<div className='w-full flex items-center justify-center max-h flex-col'><div className='text-2xl'>Witam w TrnDesk, twoja darmowa aplikacja do notatek</div><div className='text-base mt-2'>Zacznij eksplorować funkcje aplikacji</div></div>)}
-{ mode === "create" && <CreateNote></CreateNote> }
-{ mode === "edit" && <AllNote/>}
-{ mode === "stats" && <Stats></Stats>}
+{ mode === "create" && 
+<Suspense fallback={<Loading />}>
+  <CreateNote/>
+</Suspense>
+}
+{ mode === "edit" && 
+<Suspense fallback={<Loading />}>
+  <AllNote/>
+</Suspense>
+}
+{ mode === "plan" && 
+<Suspense fallback={<Loading />}>
+<Planner></Planner>
+</Suspense>
+}
+{ mode === "stats" &&
+<Suspense fallback={<Loading />}>
+  <Stats/>
+</Suspense>
+}
 </>
 )
 }

@@ -13,7 +13,7 @@ const log = ()=>{
         }
     })
     const onSubmit = async(values:any)=> {
-const req= await fetch("/api/log-in", {
+const req= await fetch("/api/notes/log-in", {
     method:"POST",
     headers:{"Content-Type": "application/JSON"},
     body: JSON.stringify(values),

@@ -27,7 +27,7 @@ const AllNote = ()=> {
         const FindNotes = async ()=> {
 
             if(!context) return;
-            const res = await fetch("api/select",{
+            const res = await fetch("api/notes/select",{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json" 
@@ -47,7 +47,7 @@ async function onDelete(noteId:any) {
     try{
 setLoading(true);
     
-    const response = await fetch("api/delete",
+    const response = await fetch("api/notes/delete",
         {
             method: "POST",
             headers: {
@@ -70,7 +70,7 @@ setLoading(false)
 async function SearchNotes(values:any){
         setTimeout(async ()=>
             {
-                const res= await fetch("api/search",
+                const res= await fetch("api/notes/search",
                     {
                         method:"POST",
                         headers:{
@@ -100,7 +100,7 @@ const renderWithLineBreaks = (text?:string): React.ReactNode => {
     ));
 }
 async function onEdit(values:any){
-    const res = await fetch("api/edit",
+    const res = await fetch("api/notes/edit",
         {
             method:"POST",
             headers: {
@@ -132,7 +132,7 @@ return(
     <div className="flex h-full items-center font-light justify-between font-light text-lg w-full p-2 rounded-md ">{note.Title} <div><button onClick={()=> setEditingID(note.id)}><Brush className="p-0.5 text-foreground"/></button> 
     <button onClick={()=> onDelete(note.id)}><Trash className="text-red-800 p-0.5"></Trash></button></div></div> </div>
 <div className="my-1 flex flex-col"><div className={cn(
-                    "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-h-25  min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                    "text-wrap file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-h-25  min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                     "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
                     "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                     
