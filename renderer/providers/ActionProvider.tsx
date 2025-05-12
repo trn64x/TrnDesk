@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useState,useContext, SetStateAction } from "react";
-type Mode = 'create' | 'edit' | 'menu' | 'stats' | undefined;
+type Mode = 'create' | 'edit' | 'menu' | 'stats' | "plan" | undefined;
 type ModeContext = {
     mode: Mode,
     setMode: React.Dispatch<SetStateAction<Mode>>;

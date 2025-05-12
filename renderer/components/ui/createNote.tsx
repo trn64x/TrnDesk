@@ -6,6 +6,7 @@ import { userContext } from "@/providers/HomeProvider";
 import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 const CreateNote = ()=>{
+    const [message,setMessage] = useState<string>("");
     const context = useContext(userContext);
     const form = useForm({
         defaultValues: {
@@ -16,13 +17,17 @@ const CreateNote = ()=>{
 
     })
     const onSubmit = async (values:any)=>{
-     await fetch("api/create", {
+     const res = await fetch("api/notes/create", {
         method: "POST",
         headers:{
             "Content-Type": "application/JSON"
         },
         body: JSON.stringify(values)
      })
+     if(res.ok){
+        const data = await res.json();
+        setMessage(data.message);
+     }
 
     }
 return(
@@ -38,6 +43,7 @@ return(
                     
                   )} {...form.register("note")} placeholder="Dodaj notatke"/>
             <Input className="my-2 mb-5 w-[40%] bg-background border-none" type="submit" value="Stwórz"/>
+            <div className="text-foreground/60">{message}</div>
         </form>
         </Form>
     </main>
