@@ -122,26 +122,27 @@ return(
 <div className="py-4 font-bold text-3xl">Wszystkie Notatki</div>
 <div className="w-[80%] flex items-center flex-col">
 
-            <div className="px-4 w-[50%] rounded-lg bg-accent"><Input className="my-4 border-1 border-background w-full" onChange={(e)=> SearchNotes(e.target.value)} placeholder="Wpisz tytuł poszukiwanej notatki..."></Input></div>
+            <div className="px-4 w-[50%] rounded-lg bg-secondary/70"><Input className="my-4 border-1 border-background w-full" onChange={(e)=> SearchNotes(e.target.value)} placeholder="Wpisz tytuł poszukiwanej notatki..."></Input></div>
 <div className="my-5 w-[80%]">{notes.length === 0  ? (<p>Brak notatek</p>): (
     !Loading ? notes.map((note,index)=> (
-<div className="bg-sidebar m-5 p-5 min-h-50 rounded-lg w-full">
+<div className="bg-secondary/70 m-5 p-5 min-h-50 rounded-lg w-full">
 <div className="my-1 flex flex-row text-lg font-light items-center">
 </div>
 {EditingID !== note.id ? ( <div className="flex flex-col">   <div className="flex flex-row items-center"><div className="font-light">Tytuł:</div>
     <div className="flex h-full items-center font-light justify-between font-light text-lg w-full p-2 rounded-md ">{note.Title} <div><button onClick={()=> setEditingID(note.id)}><Brush className="p-0.5 text-foreground"/></button> 
     <button onClick={()=> onDelete(note.id)}><Trash className="text-red-800 p-0.5"></Trash></button></div></div> </div>
 <div className="my-1 flex flex-col"><div className={cn(
-                    "text-wrap file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-h-25  min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                    "text-wrap file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-sidebar/70 border-input w-full min-h-25  min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                     "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
                     "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                     
-                  )} key={index}>  <pre className="text-foreground/70 text-wrap">{note.Content || "Brak zawartości"}</pre>
-{renderWithLineBreaks(note.content)}</div></div></div>) : 
+                  )} key={index}>  <pre className="break-words text-wrap text-foreground/70">{note.Content || "Brak zawartości"}</pre>
+</div></div></div>) : 
 (
      <Form {...form}> 
      <form className="flex flex-col" onSubmit={form.handleSubmit(onEdit)}>
         <Input
+        type="hidden"
   {...form.register("id")}
   defaultValue={note.id}
    disabled></Input>
@@ -151,7 +152,7 @@ return(
   defaultValue={note.Title} placeholder="wpisz nowy tytuł"></Input> </div>
     </div>
     <div className="my-1 flex flex-col"><div className={cn(
-                    "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-h-40  min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                    "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-sidebar/70 border-input w-full min-h-40  min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                     "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
                     "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                     
