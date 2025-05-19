@@ -29,7 +29,6 @@ async function fetchStats(userid:any){
    if(fetchData.ok){
     const data = await fetchData.json();
     setStats(data)
-    return 0;
    }
 }
 return(

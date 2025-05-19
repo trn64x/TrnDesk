@@ -8,7 +8,6 @@ export default async function handler(
 ) {
   
   const cookie = req.cookies.session;
-  console.log(cookie);
 if(!cookie){
 
   return res.status(401).json({error:"no session"});

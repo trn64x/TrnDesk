@@ -34,7 +34,7 @@ if(database && passwordcompared){
         })
     }
 
-    res.setHeader('Set-Cookie', `session=${session}`);
+    res.setHeader('Set-Cookie', `session=${session}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`);
     res.status(200).json({message: "cookie has been sent"});
         
 }

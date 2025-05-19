@@ -34,7 +34,6 @@ if(!context){
 const {json,setJson} = context;
 const router= useRouter();
 useEffect(()=> {
-
     const userData = async () => {
     const res = await fetch("api/notes/home");
 if(res.ok){
@@ -45,12 +44,32 @@ router.push("/");
 }
     }
     userData();
-},[])
+  },[])
 useEffect(() => {
     if (context?.json?.name) {
       setName(context.json.name);
     }
   }, [context?.json]);
+  async function onLogout(){
+
+    const res = await fetch("/api/logout",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:'include',
+      }
+      
+    )
+    if(res.ok){
+      try{
+setJson(undefined)
+      }
+catch(err){console.error(`logout failed due to ${err}`)}
+finally{router.push("/")};
+    }
+  }
 return(
 <>
 <Sidebar className='border-r-1 border-r-ring'>
@@ -75,7 +94,7 @@ return(
 <Barbutton onClick={()=> setMode('stats')}><Brain className="text-foreground mr-2 p-0.5"/>Statystyki</Barbutton>
         </SidebarGroup>
     </SidebarContent>
-    <SidebarFooter className='border-t-1 border-background m-2'><Button className='bg-background text-red-700 font-bold border-1 border-red-500 hover:bg-red-700 hover:text-background' onClick={()=> router.push("/")}>Wyloguj mnie</Button></SidebarFooter>
+    <SidebarFooter className='border-t-1 border-background m-2'><Button className='bg-background text-red-700 font-bold border-1 border-red-500 hover:bg-red-700 hover:text-background' onClick={()=> onLogout()}>Wyloguj mnie</Button></SidebarFooter>
 </Sidebar>
 <SidebarTrigger/>
 {(mode === undefined || mode === "menu") && (<div className='w-full flex items-center justify-center max-h flex-col'><div className='text-2xl'>Witam w TrnDesk, twoja darmowa aplikacja do notatek</div><div className='text-base mt-2'>Zacznij eksplorować funkcje aplikacji</div></div>)}
